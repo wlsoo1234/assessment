@@ -1,0 +1,5 @@
+install.packages(ranger)
+library(ranger)
+library(caret)
+library(data.table)
+creditcard_data <- read.csv("C:/Users/soowe/Documents/creditcard.csv")
