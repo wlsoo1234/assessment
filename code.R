@@ -16,14 +16,11 @@ var(creditcard_data$Amount)
 
 sd(creditcard_data$Amount)
 
-View(creditcard_data)
-
 head(creditcard_data)
 
 creditcard_data$Amount=scale(creditcard_data$Amount)
 NewData=creditcard_data[,-c(1)]
 head(NewData)
-View(NewData)
 
 #Data Modeling 
 #After we have standardized our entire dataset, 
@@ -50,8 +47,14 @@ plot(Logistic_Model)
 
 #ROC curve
 library(pROC)
-lr.predict <- predict(Logistic_Model,train_data, probability = TRUE)
+lr.predict <- predict(Logistic_Model,train_data2, probability = TRUE)
 auc.gbm = roc(test_data$Class, lr.predict, plot = TRUE, col = "blue")
+
+
+length(test_data$Class);length(lr.predict)
+train_data2 = train_data[0:56961,]
+
+train_data2
 
 #Fitting a decision tree model
 library(rpart)
