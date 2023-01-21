@@ -34,8 +34,8 @@ plot(Logistic_Model)
 # ROC Curve to assess the performance of the model
 library(pROC)
 lr.predict <- predict(Logistic_Model,test_data, probability = TRUE)
-View(lr.predict)
 auc.gbm = roc(test_data$Class, lr.predict, plot = TRUE, col = "blue")
+
 # Fitting a Decision Tree Model
 library(rpart)
 library(rpart.plot)
@@ -43,6 +43,7 @@ decisionTree_model <- rpart(Class ~ . , creditcard_data, method = 'class')
 predicted_val <- predict(decisionTree_model, creditcard_data, type = 'class')
 probability <- predict(decisionTree_model, creditcard_data, type = 'prob')
 rpart.plot(decisionTree_model)
+
 # Artificial Neural Network
 library(neuralnet)
 ANN_model =neuralnet (Class~.,train_data,linear.output=FALSE)
@@ -50,8 +51,10 @@ plot(ANN_model)
 predANN=compute(ANN_model,test_data)
 resultANN=predANN$net.result
 resultANN=ifelse(resultANN>0.5,1,0)
+
 # Gradient Boosting (GBM)
 library(gbm, quietly=TRUE)
+
 # Get the time to train the GBM model
 system.time(
   model_gbm <- gbm(Class ~ .
@@ -65,11 +68,14 @@ system.time(
                    , train.fraction = nrow(train_data) / (nrow(train_data) + nrow(test_data))
   )
 )
+
 # Determine best iteration based on test data
 gbm.iter = gbm.perf(model_gbm, method = "test")
 model.influence = relative.influence(model_gbm, n.trees = gbm.iter, sort. = TRUE)
+
 #Plot the gbm model
 plot(model_gbm)
+
 # Plot and calculate AUC on test data
 library(pROC)
 gbm_test = predict(model_gbm, newdata = test_data, n.trees = gbm.iter)
