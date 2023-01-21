@@ -61,6 +61,9 @@ predicted_val <- predict(decisionTree_model, creditcard_data, type = 'class')
 probability <- predict(decisionTree_model, creditcard_data, type = 'prob')
 rpart.plot(decisionTree_model)
 
+
+
+
 # 7. Artificial Neural Network
 install.packages("neuralnet")
 library(neuralnet)
@@ -70,3 +73,26 @@ plot(ANN_model)
 predANN=compute(ANN_model,test_data)
 resultANN=predANN$net.result
 resultANN=ifelse(resultANN>0.5,1,0)
+
+
+
+
+#8. Gradient Boosting (GBM)
+install.packages("gbm")
+library(gbm, quietly=TRUE)
+
+# Get the time to train the GBM model
+system.time(
+  model_gbm <- gbm(Class ~ .
+                   , distribution = "bernoulli"
+                   , data = rbind(train_data, test_data)
+                   , n.trees = 500
+                   , interaction.depth = 3
+                   , n.minobsinnode = 100
+                   , shrinkage = 0.01
+                   , bag.fraction = 0.5
+                   , train.fraction = nrow(train_data) / (nrow(train_data) + nrow(test_data))
+  )
+)
+# Determine best iteration based on test data
+gbm.iter = gbm.perf(model_gbm, method = "test")
