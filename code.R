@@ -23,7 +23,7 @@ head(creditcard_data)
 creditcard_data$Amount=scale(creditcard_data$Amount)
 NewData=creditcard_data[,-c(1)]
 head(NewData)
-
+View(NewData)
 
 #Data Modeling 
 #After we have standardized our entire dataset, 
@@ -40,3 +40,9 @@ train_data = subset(NewData,data_sample==TRUE)
 test_data = subset(NewData,data_sample==FALSE)
 dim(train_data)
 dim(test_data)
+
+
+#Fitting Logistic Regression Model
+
+Logistic_Model=glm(Class~.,test_data,family=binomial())
+summary(Logistic_Model)
