@@ -46,3 +46,27 @@ dim(test_data)
 
 Logistic_Model=glm(Class~.,test_data,family=binomial())
 summary(Logistic_Model)
+plot(Logistic_Model)
+
+#ROC curve
+library(pROC)
+lr.predict <- predict(Logistic_Model,train_data, probability = TRUE)
+auc.gbm = roc(test_data$Class, lr.predict, plot = TRUE, col = "blue")
+
+#Fitting a decision tree model
+library(rpart)
+library(rpart.plot)
+decisionTree_model <- rpart(Class ~ . , creditcard_data, method = 'class')
+predicted_val <- predict(decisionTree_model, creditcard_data, type = 'class')
+probability <- predict(decisionTree_model, creditcard_data, type = 'prob')
+rpart.plot(decisionTree_model)
+
+# 7. Artificial Neural Network
+install.packages("neuralnet")
+library(neuralnet)
+ANN_model =neuralnet (Class~.,train_data,linear.output=FALSE)
+plot(ANN_model)
+
+predANN=compute(ANN_model,test_data)
+resultANN=predANN$net.result
+resultANN=ifelse(resultANN>0.5,1,0)
