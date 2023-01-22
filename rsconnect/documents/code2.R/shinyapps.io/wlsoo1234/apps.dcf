@@ -1,0 +1,13 @@
+name: apps
+title: apps
+username:
+account: wlsoo1234
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 8094073
+bundleId: 6761317
+url: https://wlsoo1234.shinyapps.io/apps/
+when: 1674412596.87864
+lastSyncTime: 1674412596.87864
+asMultiple: FALSE
+asStatic: FALSE

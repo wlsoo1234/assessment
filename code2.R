@@ -8,11 +8,9 @@ library(data.table)
 library(caTools)
 
 #Read data
-creditcard_data <- read.csv("https://raw.githubusercontent.com/wlsoo1234/assessment/main/NewData.csv")
-NewData0=creditcard_data[,-c(1)]
-NewData1 = NewData0[,-c(29)]
-NewData = NewData1[-c(190000:284807),]
-write.csv(NewData,file = "NewData.csv",row.names = TRUE)
+creditcard_data <- read.csv("https://raw.githubusercontent.com/wlsoo1234/assessment/main/NewData.csv", stringsAsFactors = FALSE)
+NewData = creditcard_data
+
 data_sample = sample.split(NewData$Class,SplitRatio=0.80)
 train_data = subset(NewData,data_sample==TRUE)
 test_data = subset(NewData,data_sample==FALSE)
