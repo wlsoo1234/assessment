@@ -108,7 +108,7 @@ server<- function(input, output, session) {
     test <- read.csv(paste("input1", ".csv", sep=""),
                      header = TRUE)
     
-    Output <- data.frame(Prediction=predict(model2,test), round(predict(model2,test,type="prob"), 3))
+    Output <- data.frame("Prediction", round(predict(model2,test,type="prob"), 3))
     print(Output)
     
   })
